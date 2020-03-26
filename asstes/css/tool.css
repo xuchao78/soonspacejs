@@ -1,0 +1,52 @@
+.right-top-toolBax {
+  position: absolute;
+  padding: 24px;
+  background-color: rgba(0, 0, 0, .3);
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.line + .line{
+  margin-top: 12px;
+}
+
+.line-key {
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+  text-align: right;
+  color: #ccc;
+  font-size: 14px;
+  padding-right: 12px;
+}
+
+.line-val {
+  display: inline-block;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+input[type='color'] {
+  padding: 0;
+}
+
+input[type='file'] {
+  width: 200px;
+}
+
+button {
+  user-select: none;
+  min-width: 120px;
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #1e1e1e;
+  color: white;
+}

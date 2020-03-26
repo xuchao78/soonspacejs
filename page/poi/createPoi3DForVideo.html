@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SoonSpace develop test</title>
+  <link rel="stylesheet" href="../../asstes/css/base.css">
+</head>
+
+<body>
+
+  <video id="myVideo" width="400" height="300" src="../../asstes/video/111.mp4" autoplay></video>
+  <!-- <video loop id="myVideo" width="400" height="300" src="https://fcvideo.cdn.bcebos.com/smart/95bcb4a658e02df9d16f5dc9bf636ea6.mp4" autoplay></video> -->
+
+  <div id="view"></div>
+
+  <script src="../../sdk/index.js"></script>
+  <script>
+    const ssp = new SoonSpace({
+      el: '#view',
+      option: {
+        backgroundColor: 0x333300,
+        showGrid: true
+      },
+      events: {}
+    })
+
+    // 创建一个元素
+    let el = document.querySelector('#myVideo')
+
+
+    /**
+     * createPOI3D
+     */
+    const poi3D = ssp.createPoi3D({
+      id: 'second3DPoi',
+        level: 1000,
+        position: {
+          x: 100,
+          y: 40,
+          z: 0
+        },
+        scale: {
+          width: 1,
+          height: 1
+        },
+        rotation: {
+          x: 0,
+          y: Math.PI / 2,
+          z: 0
+        },
+        element: el,
+        userData: {
+          name: 'xuekai',
+          age: 18,
+          sex: 1
+        }
+    })
+
+
+  </script>
+</body>
+
+</html>
