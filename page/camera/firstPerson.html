@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SoonSpace develop test</title>
+  <link rel="stylesheet" href="../../asstes/css/base.css">
+  <link rel="stylesheet" href="../../asstes/css/tool.css">
+</head>
+
+<body>
+  <div id="view">
+    <div class="right-top-toolBax">
+      <button id="startFp">开始第一人称</button>
+      <button id="closeFp">关闭第一人称</button>
+    </div>
+  </div>
+  <script src="../../sdk/index.js"></script>
+  <script>
+    let oldModel
+    const ssp = new SoonSpace({
+      el: '#view',
+      option: {
+
+        backgroundColor: 0x333300
+
+      },
+      events: {
+
+        selectPosition(position) {
+
+          console.log('selectPosition', position)
+
+          // var THREE = ssp.viewport.THREE
+
+          // var geometry = new THREE.SphereBufferGeometry(0.2, 32, 32);
+
+          // var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+
+          // var sphere = new THREE.Mesh(geometry, material);
+
+          // sphere.position.copy(position)
+
+          // ssp.viewport.scene.add(sphere);
+
+        },
+
+        modelClick(param) {
+
+          console.log(param)
+
+          oldModel = param.target
+
+        }
+
+      }
+
+    })
+
+    ssp.loadAloneScene(
+      {
+        id: 'firstJsonScene',
+        url: '../../asstes/model/Json/fuzhouSubwayStation.json',
+        position: {
+          x: 0,
+          y: 100,
+          z: 0
+        }
+      }
+    )
+
+      .then(obj => {
+        window.obj = obj
+        console.log(obj)
+
+      })
+
+    ssp.viewport.camera.fov = 20
+
+    document.getElementById("closeFp").onclick = function () {
+
+      ssp.viewport.stopFirstPerson()
+
+      let cameraPos = ssp.viewport.camera.position.clone()
+
+      let cameraForwardPos = cameraPos.clone().add(ssp.viewport.camera.getWorldDirection(cameraPos.clone()).multiplyScalar(10))
+
+      ssp.flyTo(
+        cameraPos,
+        cameraForwardPos,
+        true
+      )
+
+    }
+
+    document.getElementById('startFp').onclick = function () {
+
+      ssp.flyTo(
+        {
+          x: 40.63551537691012, y: 87.3832200739058, z: -1.5369833618253872
+        },
+        {
+          x: 49.63551537691012, y: 87.3832200739058, z: -1.5369833618253872
+        },
+        true
+      )
+        .then(res =>
+          ssp.viewport.startFirstPerson())
+    }
+
+
+    // const t = ssp.loadTopology(pos)
+
+    // console.log(t)
+
+
+  </script>
+</body>
+
+</html>

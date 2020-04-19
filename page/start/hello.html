@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SoonSpace develop test</title>
+  <link rel="stylesheet" href="../../asstes/css/base.css">
+</head>
+
+<body>
+  <div id="view">
+    <div class=""></div>
+  </div>
+  <script src="../../sdk/index.js"></script>
+  <script>
+    const ssp = new SoonSpace({
+      // 绑定场景的元素选择器
+      el: '#view',
+      // 初始配置项
+      option: {
+        // 背景色 十六进制
+        backgroundColor: 0x333300,
+        // 是否显示网格
+        showGrid: true,
+        // 是否显示左下角的加载数量信息
+        showInfo: true
+      },
+      // 场景交互事件
+      events: {
+
+      }
+    })
+
+    function rotateAroundTarget(option) {
+
+      return new Promise(resolve => {
+        var { soonSpace, target, speed, long } = Object.assign({ target: { x: 0, y: 0, z: 0 }, speed: 0.02, long: Math.PI * 2 }, option)
+        let camera = soonSpace.editor.camera
+        let centerPos = camera.position.clone().set(target.x, camera.position.y, target.z)
+        let radius = centerPos.distanceTo(camera.position)
+        let currentAngle = 0
+        let sin = Math.sin
+        let cos = Math.cos
+        let startPos = camera.position.clone()
+
+        let timerId = setInterval(() => {
+          currentAngle += speed
+          let x = sin(currentAngle) * radius + target.x
+          let z = cos(currentAngle) * radius + target.z
+          camera.position.x = x
+          camera.position.z = z
+          camera.lookAt(target)
+          if (currentAngle > long) {
+            window.clearInterval(timerId)
+            resolve()
+          }
+          soonSpace.viewport.render()
+          console.log(soonSpace.editor.camera.position.toArray())
+        }, 20)
+      })
+    }
+
+  </script>
+</body>
+
+</html>

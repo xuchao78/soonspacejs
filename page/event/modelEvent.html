@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SoonSpace develop test</title>
+  <link rel="stylesheet" href="../../asstes/css/base.css">
+</head>
+
+<body>
+  <div id="view"></div>
+
+  <script src="../../sdk/index.js"></script>
+  <script>
+
+    const ssp = new SoonSpace({
+      el: '#view',
+      option: {
+        showInfo: true,
+        hoverEnabled: false
+      },
+      events: {
+        modelClick(param) {
+
+          console.log('global modelClick', param)
+
+        },
+        modelRightClick(param) {
+
+          console.log('global modelRightClick', param)
+
+        },
+        modelDblClick(param) {
+
+          console.log('global modelDblClick', param)
+
+        },
+        modelHover(param) {
+
+          console.log('global modelHover', param)
+
+        }
+      }
+    })
+
+    // 样例模型服务地址
+    const baseUrl = '../../asstes/model/sbm/yingtaidasha'
+    const mapsUrl = `${baseUrl}/Maps/`
+
+    const sbmsInfo = [
+      {
+        id: 'B1',
+        name: 'B1',
+        url: `${baseUrl}/yingtaidasha_B1_0.sbm`,
+        mapsUrl,
+        position: { x: 0, y: 0, z: 0 },
+        onHover() {
+          // 开启冒泡事件传播到全局事件，默认不传播
+          this.eventPropagation()
+
+          console.log('model self onHover', this)
+        },
+        onClick(e) {
+          // this.eventPropagation()
+
+          console.log('model self onClick -> e', e)
+          console.log('model self onClick -> this', this)
+        },
+        onDblClick() {
+          this.eventPropagation()
+
+          console.log('model self onDblClick', this)
+        },
+        onRightClick() {
+          this.eventPropagation()
+
+          console.log('model self onRightClick', this)
+        }
+      }
+    ]
+
+    ssp.loadSbm(sbmsInfo)
+
+      .then(() => {
+
+        ssp.flyMainViewpoint()
+
+      })
+
+  </script>
+</body>
+
+</html>

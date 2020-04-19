@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SoonSpace develop test</title>
+  <link rel="stylesheet" href="../../../asstes/css/base.css">
+</head>
+
+<body>
+  <div id="view"></div>
+  <script src="../../../sdk/index.js"></script>
+
+  <script>
+
+    var model = null
+
+    const ssp = new SoonSpace({
+      el: '#view',
+      option: {
+        backgroundColor: 0x330300
+      },
+      events: {
+
+        modelClick(param) {
+
+          console.log(param)
+
+          const cloneMap = param.currentTarget.material.clone()
+
+          param.currentTarget.material = cloneMap
+
+          param.currentTarget.changeMaterialMap('../../../asstes/img/test/nz.png')
+
+          var mesh = param.currentTarget
+
+          // 归一化的底面uv坐标
+          var arr = new Float32Array([1.0, .0, .0, .0, .0, 1.0, .0, 1.0, 1.0, 1.0, 1.0, .0])
+
+          mesh.geometry.attributes.uv.array = arr
+          mesh.geometry.attributes.uv.needsUpdate = true
+          ssp.viewport.render()
+
+          ssp.nextRender(() => {
+
+          })
+
+        }
+
+      }
+    })
+
+
+    var model = null
+
+    const baseUrl = '../../../asstes/model/sbm/BOX'
+
+    const mapsUrl = `${baseUrl}/Maps/`
+
+    const sbmsInfo = [
+      {
+        id: '1F',
+        name: '1F',
+        url: `${baseUrl}/BOX_1F_0.sbm`,
+        mapsUrl
+      },
+    ]
+
+    ssp.loadSbm(sbmsInfo).then(sbm => {
+      model = sbm[0]
+      console.log(sbm)
+    })
+
+  </script>
+</body>
+
+</html>

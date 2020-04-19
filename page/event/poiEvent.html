@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SoonSpace develop test</title>
+  <link rel="stylesheet" href="../../asstes/css/base.css">
+</head>
+
+<body>
+  <div id="view"></div>
+  <script src="../../sdk/index.js"></script>
+  <script>
+    const ssp = new SoonSpace({
+      el: '#view',
+      option: {
+        showInfo: true,
+        hoverEnabled: false
+      },
+      events: {
+        poiClick(poi) {
+
+          console.log('global poiClick', poi)
+
+        },
+        poiRightClick(param) {
+
+          console.log('global poiRightClick', param)
+
+        },
+        poiDblClick(poi) {
+
+          console.log('global poiDblClick', poi)
+
+        },
+        poiHover(poi) {
+
+          console.log('global poiHover', poi)
+
+        }
+      }
+    })
+
+    const poi = ssp.createPoi({
+      id: "icon1",
+      name: "icon1icon1icon1",
+      iconUrl: "../../asstes/img/poi/icon1.png",
+      onHover() {
+        // 开启冒泡事件传播到全局事件，默认不传播
+        this.eventPropagation()
+
+        console.log('poi self onHover', this)
+      },
+      onClick() {
+        // this.eventPropagation()
+
+        console.log('poi self onClick', this)
+      },
+      onDblClick() {
+        this.eventPropagation()
+
+        console.log('poi self onDblClick', this)
+      },
+      onRightClick() {
+        this.eventPropagation()
+
+        console.log('poi self onRightClick', this)
+      }
+    });
+
+    console.log(poi)
+
+    poi.icon.geometry.computeBoundingBox()
+
+    ssp.viewport.scener.importObject(new ssp.viewport.THREE.Box3Helper(poi.icon.geometry.boundingBox))
+
+  </script>
+</body>
+
+</html>

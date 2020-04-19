@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SoonSpace develop test</title>
+  <link rel="stylesheet" href="../../asstes/css/base.css">
+</head>
+
+<body>
+  <div id="view"></div>
+  <script src="../../sdk/index.js"></script>
+  <script>
+    const ssp = new SoonSpace({
+      el: '#view',
+      option: {
+        backgroundColor: 0x333300,
+        showGrid: true,
+        showInfo: false
+      },
+      events: {}
+    })
+
+    /**
+     * createPoi
+     */
+    const poi = ssp.createPoi({
+      id: "icon1",
+      name: "icon1icon1icon1icon1icon1icon1icon1",
+      iconUrl: "../../asstes/img/poi/icon1.png",
+      level: 1000,
+      position: {
+        x: 0,
+        y: 100,
+        z: 0
+      },
+      scale: {
+        width: 1,
+        height: 1
+      },
+      userData: {
+        name: 'xuekai',
+        age: 18,
+        sex: 1
+      }
+    });
+
+    console.log('createPoi', poi)
+
+    poi.hide()
+
+    /**
+     * createPoiToGroup
+     */
+    const group = ssp.createPoiToGroup(
+      {
+        id: 'firstPoiGroup'
+      },
+      {
+        id: "icon2",
+        name: "icon2",
+        iconUrl: "../../asstes/img/poi/icon1.png",
+        level: 700,
+        position: {
+          x: 100,
+          y: 100,
+          z: 100
+        },
+        scale: {
+          width: 1,
+          height: 1
+        },
+      }
+    );
+
+    console.log('createPoiToGroup', group)
+
+
+    /**
+     * addPoiForGroup
+     */
+    ssp.addPoiForGroup(
+      'firstPoiGroup',
+      {
+        id: "icon3",
+        name: "icon3",
+        iconUrl: "../../asstes/img/poi/icon1.png",
+        level: 900,
+        position: {
+          x: 200,
+          y: 100,
+          z: 200
+        },
+        scale: {
+          width: 1,
+          height: 1
+        },
+      }
+    )
+
+    console.log('addPoiForGroup', group)
+
+    group.children[0].hide()
+
+
+  </script>
+</body>
+
+</html>

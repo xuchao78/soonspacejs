@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SoonSpace develop test</title>
+    <link rel="stylesheet" href="../../asstes/css/base.css">
+</head>
+
+<body>
+    <div id="view">
+        <div class=""></div>
+    </div>
+    <script src="../../sdk/index.js"></script>
+    <script>
+        const ssp = new SoonSpace({
+            // 绑定场景的元素选择器
+            el: '#view',
+            // 初始配置项
+            option: {
+                // 背景色 十六进制
+                backgroundColor: 0x333300,
+                // 是否显示网格
+                showGrid: true
+            },
+            // 场景交互事件
+            events: {
+
+            }
+        })
+
+        ssp.createFire({ texturePath: '../../asstes/img/effect/fire.png' })
+
+        
+
+        ssp.editor.scene.add(ssp.drawTorusPlane({
+
+            radius: 150,//半径
+            planeSize: 800,//外接正方形边长
+            torusWidth: 200,//环宽
+            color: 'red',//环面颜色
+            opacity: true,//环面透明度
+        }))
+
+        ssp.editor.scene.add(ssp.drawTorusPlane({
+
+            radius: 400,//半径
+            planeSize: 1800,//外接正方形边长
+            torusWidth: 400,//环宽
+            color: 'yellow',//环面颜色
+            opacity: true,//环面透明度
+        }))
+        ssp.editor.scene.add(ssp.drawTorusPlane({
+
+            radius: 600,//半径
+            planeSize: 2800,//外接正方形边长
+            torusWidth: 500,//环宽
+            color: 'green',//环面颜色
+            opacity: true,//环面透明度
+        }))
+
+
+
+
+
+    </script>
+</body>
+
+</html>
